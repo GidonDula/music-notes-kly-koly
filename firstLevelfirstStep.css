@@ -1,0 +1,13 @@
+#viewport {
+    margin: auto;
+    border-radius: 5px;
+    background-image: url("music-notes-kly-kply/another-theater-picture.png");
+    background-repeat: no-repeat;
+}
+
+#canvas-wrap {
+    width: 100%;
+    text-align: center;
+    width: 1200px;
+    height: 1200px;
+}
