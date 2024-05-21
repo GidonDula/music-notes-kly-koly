@@ -125,15 +125,16 @@ window.onload = function () {
 
   let images = [];
 
+  const folderName = "assets";
   let Images = [
-    "music-notes-kly-kply/Sol do1 key-modified.png",
-    "music-notes-kly-kply/Sol re key-modified.png",
-    "music-notes-kly-kply/Sol mi key-modified.png",
-    "music-notes-kly-kply/Sol fa key-modified.png",
-    "music-notes-kly-kply/Sol sol key-modified.png",
-    "music-notes-kly-kply/Sol La Key-modified.png",
-    "music-notes-kly-kply/Sol ci key-modified.png",
-    "music-notes-kly-kply/Sol do2key-modified.png",
+    `${folderName}/Sol do1 key-modified.png`,
+    `${folderName}/Sol re key-modified.png`,
+    `${folderName}/Sol mi key-modified.png`,
+    `${folderName}/Sol fa key-modified.png`,
+    `${folderName}/Sol sol key-modified.png`,
+    `${folderName}/Sol La Key-modified.png`,
+    `${folderName}/Sol ci key-modified.png`,
+    `${folderName}/Sol do2key-modified.png`,
   ];
 
   let do1Ball = document.getElementById("do1 ball");
