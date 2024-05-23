@@ -1031,6 +1031,7 @@ window.onload = function () {
               randomTile = Math.floor(Math.random() * 5) + bublecolors;
               if(randomTile==7){
                 randomTile++;
+              }
             }
           }
           level.tiles[i][j].type = randomTile;
