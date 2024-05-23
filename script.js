@@ -574,7 +574,7 @@ window.onload = function () {
     return false;
   }
 
-  function addBubbles() {
+    function addBubbles() {
     //move the rows downwords
     for (let i = 0; i < level.colums; i++) {
       for (let j = 0; j < level.rows - 1; j++) {
@@ -582,9 +582,17 @@ window.onload = function () {
           level.tiles[i][level.rows - 1 - j - 1].type;
       }
     }
+    let countMusicalNotesPerRow = 0;
+    let maxMusicalNotesAtRow = 4;
     //add a new row of bubels at the top
     for (let i = 0; i < level.colums; i++) {
       level.tiles[i][0].type = getExsistingColor();
+      if (level.tiles[i][0].type <= 7) {
+        countMusicalNotesPerRow++;
+        if (countMusicalNotesPerRow > maxMusicalNotesAtRow) {
+          level.tiles[i][0].type = Math.floor(Math.random() * 5) + bublecolors;
+        }
+      }
     }
   }
 
@@ -987,15 +995,18 @@ window.onload = function () {
     //set the gamestate to ready
     setGamestate(gameStates.ready);
     //create the level
-    createLevel();
+    createLevelNew();
     //init the next buble and set current bubble
 
     nextBuble();
     nextBuble();
   }
-  //create a random level
-  function createLevel() {
+
+   //create a random level
+  function createLevelNew() {
     //create a level with random tiles
+    let countMusicalNotesPerRow = 0;
+    let maxMusicalNotesAtRow = 4;
     for (let j = 0; j < level.rows; j++) {
       let randomTile = randRange(0, musicalNotes - 1);
       let count = 0;
@@ -1011,14 +1022,54 @@ window.onload = function () {
           count = 0;
         }
         count++;
+
         if (j < level.rows / 2) {
+          console.log(i, j, randomTile);
+          if (randomTile <= 7) {
+            countMusicalNotesPerRow++;
+            if (countMusicalNotesPerRow > maxMusicalNotesAtRow) {
+              randomTile = Math.floor(Math.random() * 5) + bublecolors;
+            }
+          }
           level.tiles[i][j].type = randomTile;
+          console.log(i, j, randomTile, countMusicalNotesPerRow);
         } else {
           level.tiles[i][j].type = -1;
         }
       }
+      countMusicalNotesPerRow = 0;
     }
   }
+
+  //create a random level
+  // function createLevel() {
+  //   //create a level with random tiles
+
+  //   for (let j = 0; j < level.rows; j++) {
+  //     let randomTile = randRange(0, musicalNotes - 1);
+  //     let count = 0;
+  //     for (let i = 0; i < level.colums; i++) {
+  //       if (count >= 2) {
+  //         //change the random tile
+  //         let newTile = randRange(0, musicalNotes - 1);
+  //         //make shure the new tile is diffrent from the previous tile
+  //         if (newTile == randomTile) {
+  //           newTile = (newTile + 1) % musicalNotes;
+  //         }
+  //         randomTile = newTile;
+  //         count = 0;
+  //       }
+  //       count++;
+
+  //       if (j < level.rows / 2) {
+  //         level.tiles[i][j].type = randomTile;
+  //       } else {
+  //         level.tiles[i][j].type = -1;
+  //       }
+  //     }
+  //   }
+  // }
+ 
   //create a random buble for the player
   function nextBuble() {
     //set the current buble
