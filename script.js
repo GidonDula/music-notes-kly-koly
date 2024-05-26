@@ -586,13 +586,7 @@ window.onload = function () {
     let maxMusicalNotesAtRow = 4;
     //add a new row of bubels at the top
     for (let i = 0; i < level.colums; i++) {
-      level.tiles[i][0].type = getExsistingColor();
-      if (level.tiles[i][0].type <= 7) {
-        countMusicalNotesPerRow++;
-        if (countMusicalNotesPerRow > maxMusicalNotesAtRow) {
-          level.tiles[i][0].type = Math.floor(Math.random() * 5) + bublecolors;
-        }
-      }
+      level.tiles[i][0].type = Math.floor(Math.random() * 5) + bublecolors;
     }
   }
 
