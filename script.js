@@ -587,6 +587,9 @@ window.onload = function () {
     //add a new row of bubels at the top
     for (let i = 0; i < level.colums; i++) {
       level.tiles[i][0].type = Math.floor(Math.random() * 5) + bublecolors;
+       if(level.tiles[i][0].type==7){
+                level.tiles[i][0].type++;
+              }
     }
   }
 
