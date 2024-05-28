@@ -481,7 +481,7 @@ window.onload = function () {
     console.log("centrex", centrex);
     console.log("centery", centery);
     console.log("gridpos", gridpos);
-    if (level.tiles[gridpos.x][gridpos.y - 1].type == -1) {
+    if (level.tiles[gridpos.x][gridpos.y - 1].type == -1 && gridpos.y > 0) {
       console.log("floating bubble", player.buble.tileType);
       gridpos = getGridPosition(centrex, centery - level.tileheight);
     }
