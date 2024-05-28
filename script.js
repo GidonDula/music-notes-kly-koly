@@ -32,18 +32,20 @@ window.onload = function () {
   let framecount = 0;
   let fps = 0;
   let initialized = false;
+
+  const bubbleSize = 70;
   //level
   let level = {
     x: 4, //x position
-    y: 83, //y position
+    y: 83, // bubble distance from top
     width: 0, //width gets calculated
     height: 0, //height gets calculated
     colums: 10, //number of tiled colums
     rows: 10, //number of tiled rows
-    tileWidth: 70, //visual width of a tile
-    tileheight: 70, //visual height of a tile
+    tileWidth: bubbleSize, //visual width of a tile
+    tileheight: bubbleSize, //visual height of a tile
     rowHeight: 70, //height of a row
-    radius: 50, //bubble colision radius
+    radius: bubbleSize / 2, //bubble colision radius
     tiles: [], //two dimensional tile array
   };
 
@@ -98,7 +100,7 @@ window.onload = function () {
     ],
   ]; //odd row tiles
   //number of diffrent colors-for us
-  let bublecolors = 7;
+  let bublecolors = 8;
 
   let musicalNotes = 13;
 
@@ -192,10 +194,10 @@ window.onload = function () {
         level.tiles[i][j] = new Tile(i, j, 0, 0);
       }
     }
-    console.log(level.tiles);
+    //console.log(level.tiles);
     level.width = level.colums * level.tileWidth + level.tileWidth / 2;
     level.height = (level.rows - 1) * level.rowHeight + level.tileheight;
-    console.log(level.width, level.height);
+    //console.log(level.width, level.height);
     //init the player
     player.x = level.x + level.width / 2 - level.tileWidth / 2;
     player.y = level.y + level.height;
@@ -275,10 +277,13 @@ window.onload = function () {
     //move the buble in the direction of the mouse
     console.log("shooting the buble");
     document.getElementById("buble-move").play();
+
+    // moves bubble
     player.buble.x +=
       dt * player.buble.speed * Math.cos(degToRad(player.buble.angle));
     player.buble.y +=
       dt * player.buble.speed * -1 * Math.sin(degToRad(player.buble.angle));
+
     //handle left and right colisions with the level
     if (player.buble.x <= level.x) {
       //left edge
@@ -297,7 +302,7 @@ window.onload = function () {
       //top colision
       console.log("top colision");
       player.buble.y = level.y;
-      snapBubble(); //ניפוץ בועה
+      snapBubbleToGrid(); //ניפוץ בועה
       return;
     }
     //colisions with other tiles
@@ -322,35 +327,35 @@ window.onload = function () {
         ) {
           //intersection with a level buble
           console.log("circle intersection");
-          snapBubble(); //ניפוץ בועה
+          snapBubbleToGrid();
           return;
         }
       }
     }
-    let tempTiles = [];
-    let tilesMoveUp = false;
-    for (let i = 0; i < level.colums; i++) {
-      tempTiles[i] = [];
-      for (let j = 0; j < level.rows; j++) {
-        tempTiles[i][j] = new Tile(i, j, level.tiles[i][j].type, 0);
-        if (j > 0) {
-          let tile1 = tempTiles[i][j - 1];
-          let tile2 = tempTiles[i][j];
-          if (tile1.type < 0 && tile2.type > 0) {
-            tilesMoveUp = true;
-            let tempType = tile1.type;
-            tile1.type = tile2.type;
-            tile2.type = tempType;
-            drawBuble(i, j - 1, tile1.type);
-          }
-        }
-      }
-    }
-    if (tilesMoveUp) {
-      level.tiles = tempTiles;
-    }
-    console.log(player);
-    console.log(level.tiles);
+    // let tempTiles = [];
+    // let tilesMoveUp = false;
+    // for (let i = 0; i < level.colums; i++) {
+    //   tempTiles[i] = [];
+    //   for (let j = 0; j < level.rows; j++) {
+    //     tempTiles[i][j] = new Tile(i, j, level.tiles[i][j].type, 0);
+    //     if (j > 0) {
+    //       let tile1 = tempTiles[i][j - 1];
+    //       let tile2 = tempTiles[i][j];
+    //       if (tile1.type < 0 && tile2.type > 0) {
+    //         tilesMoveUp = true;
+    //         let tempType = tile1.type;
+    //         tile1.type = tile2.type;
+    //         tile2.type = tempType;
+    //         drawBuble(i, j - 1, tile1.type);
+    //       }
+    //     }
+    //   }
+    // }
+    // if (tilesMoveUp) {
+    //   level.tiles = tempTiles;
+    // }
+    //console.log(player);
+    //console.log(level.tiles);
   }
 
   function stateRemoveCluster(dt) {
@@ -466,13 +471,20 @@ window.onload = function () {
     }
   }
   //snap buble to the grid
-  function snapBubble() {
+  function snapBubbleToGrid() {
     //get the grid position
     console.log("snapping the buble");
+
     let centrex = player.buble.x + level.tileWidth / 2;
     let centery = player.buble.y + level.tileheight / 2;
     let gridpos = getGridPosition(centrex, centery);
-    console.log(gridpos);
+    console.log("centrex", centrex);
+    console.log("centery", centery);
+    console.log("gridpos", gridpos);
+    if (level.tiles[gridpos.x][gridpos.y - 1].type == -1) {
+      console.log("floating bubble", player.buble.tileType);
+      gridpos = getGridPosition(centrex, centery - level.tileheight);
+    }
     //make shure the gridposition is valid
     if (gridpos.x < 0) {
       gridpos.x = 0;
@@ -489,22 +501,24 @@ window.onload = function () {
       gridpos.y = level.rows - 1;
     }
     //check if the tile is empty
-    let addtile = false;
+    let shouldAddTile = false;
     if (level.tiles[gridpos.x][gridpos.y].type != -1) {
       console.log(level.tiles[gridpos.x][gridpos.y].type);
       //tile is not empty shift the new tile downwords
       for (let newrow = gridpos.y + 1; newrow < level.rows; newrow++) {
         if (level.tiles[gridpos.x][newrow].type == -1) {
           gridpos.y = newrow;
-          addtile = true;
+          shouldAddTile = true;
           break;
         }
       }
     } else {
-      addtile = true;
+      shouldAddTile = true;
     }
+
+    console.log("shouldAddTile", shouldAddTile);
     //add the tile to the grid
-    if (addtile) {
+    if (shouldAddTile) {
       console.log("adding tile");
       //hide the player buble
       player.buble.visible = false;
@@ -574,7 +588,7 @@ window.onload = function () {
     return false;
   }
 
-    function addBubbles() {
+  function addBubbles() {
     //move the rows downwords
     for (let i = 0; i < level.colums; i++) {
       for (let j = 0; j < level.rows - 1; j++) {
@@ -582,14 +596,13 @@ window.onload = function () {
           level.tiles[i][level.rows - 1 - j - 1].type;
       }
     }
-    let countMusicalNotesPerRow = 0;
-    let maxMusicalNotesAtRow = 4;
+
     //add a new row of bubels at the top
     for (let i = 0; i < level.colums; i++) {
       level.tiles[i][0].type = Math.floor(Math.random() * 5) + bublecolors;
-       if(level.tiles[i][0].type==7){
-                level.tiles[i][0].type++;
-              }
+      if (level.tiles[i][0].type == 7) {
+        level.tiles[i][0].type++;
+      }
     }
   }
 
@@ -936,7 +949,11 @@ window.onload = function () {
   }
   //get the closest grid position
   function getGridPosition(x, y) {
-    let gridY = Math.floor((y - level.y) / level.rowHeight);
+    const yDistance = y - level.y;
+    console.log("yDistance", yDistance);
+    console.log("level.rowHeight", level.rowHeight);
+    console.log("yDistance / level.rowHeight", yDistance / level.rowHeight);
+    const gridY = Math.floor(yDistance / level.rowHeight);
     //check for offset
     let xoffset = 0;
     if ((gridY + rowOffset) % 2) {
@@ -999,7 +1016,7 @@ window.onload = function () {
     nextBuble();
   }
 
-   //create a random level
+  //create a random level
   function createLevelNew() {
     //create a level with random tiles
     let countMusicalNotesPerRow = 0;
@@ -1021,18 +1038,18 @@ window.onload = function () {
         count++;
 
         if (j < level.rows / 2) {
-          console.log(i, j, randomTile);
+          //console.log(i, j, randomTile);
           if (randomTile <= 7) {
             countMusicalNotesPerRow++;
             if (countMusicalNotesPerRow > maxMusicalNotesAtRow) {
               randomTile = Math.floor(Math.random() * 5) + bublecolors;
-              if(randomTile==7){
+              if (randomTile == 7) {
                 randomTile++;
               }
             }
           }
           level.tiles[i][j].type = randomTile;
-          console.log(i, j, randomTile, countMusicalNotesPerRow);
+          //          console.log(i, j, randomTile, countMusicalNotesPerRow);
         } else {
           level.tiles[i][j].type = -1;
         }
@@ -1069,7 +1086,6 @@ window.onload = function () {
   //     }
   //   }
   // }
- 
   //create a random buble for the player
   function nextBuble() {
     //set the current buble
