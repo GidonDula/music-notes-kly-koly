@@ -332,30 +332,30 @@ window.onload = function () {
         }
       }
     }
-    // let tempTiles = [];
-    // let tilesMoveUp = false;
-    // for (let i = 0; i < level.colums; i++) {
-    //   tempTiles[i] = [];
-    //   for (let j = 0; j < level.rows; j++) {
-    //     tempTiles[i][j] = new Tile(i, j, level.tiles[i][j].type, 0);
-    //     if (j > 0) {
-    //       let tile1 = tempTiles[i][j - 1];
-    //       let tile2 = tempTiles[i][j];
-    //       if (tile1.type < 0 && tile2.type > 0) {
-    //         tilesMoveUp = true;
-    //         let tempType = tile1.type;
-    //         tile1.type = tile2.type;
-    //         tile2.type = tempType;
-    //         drawBuble(i, j - 1, tile1.type);
-    //       }
-    //     }
-    //   }
-    // }
-    // if (tilesMoveUp) {
-    //   level.tiles = tempTiles;
-    // }
-    //console.log(player);
-    //console.log(level.tiles);
+    let tempTiles = [];
+    let tilesMoveUp = false;
+    for (let i = 0; i < level.colums; i++) {
+      tempTiles[i] = [];
+      for (let j = 0; j < level.rows; j++) {
+        tempTiles[i][j] = new Tile(i, j, level.tiles[i][j].type, 0);
+        if (j > 0) {
+          let tile1 = tempTiles[i][j - 1];
+          let tile2 = tempTiles[i][j];
+          if (tile1.type < 0 && tile2.type > 0) {
+            tilesMoveUp = true;
+            let tempType = tile1.type;
+            tile1.type = tile2.type;
+            tile2.type = tempType;
+            drawBuble(i, j - 1, tile1.type);
+          }
+        }
+      }
+    }
+    if (tilesMoveUp) {
+      level.tiles = tempTiles;
+    }
+    console.log(player);
+    console.log(level.tiles);
   }
 
   function stateRemoveCluster(dt) {
