@@ -531,7 +531,7 @@ window.onload = function () {
       }
       //find clusters
       cluster = findCluster(gridpos.x, gridpos.y, true, true, false);
-      if (cluster.length >= 3) {
+      if (cluster.length > 3) {
         console.log("changing to remove cluster", cluster);
         //remove the cluster
         setGamestate(gameStates.removeCluster);
