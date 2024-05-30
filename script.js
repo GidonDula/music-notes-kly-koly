@@ -834,7 +834,7 @@ window.onload = function () {
       context.fillStyle = "#ffffff";
       context.font = "24px Verdana";
       drawCenterText(
-        "congragulation you won the game",
+        "Congrats! You are a music master🥳🎵🎶",
         level.x,
         level.y + level.height / 2 + 10,
         level.width
