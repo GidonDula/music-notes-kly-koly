@@ -462,7 +462,11 @@ window.onload = function () {
           }
         }
         if (tilefound) {
-          setGamestate(gameStates.ready);
+            if (checkWinningTheGame()) {
+            setGamestate(gameStates.winning);
+          } else {
+            setGamestate(gameStates.ready);
+          }
         } else {
           //no tiles left game over
           setGamestate(gameStates.gameOver);
