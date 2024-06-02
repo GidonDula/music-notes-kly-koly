@@ -14,7 +14,7 @@
 @media (max-width: 800px) {
   #viewport {
     width: 700px;
-    height: 1200px;
+    height: 1100px;
     background-image: url("assets/theater-picture-for-mobile.jpg");
     background-repeat: no-repeat;
   }
