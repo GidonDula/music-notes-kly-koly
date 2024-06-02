@@ -821,7 +821,7 @@ window.onload = function () {
       context.fillStyle = "#ffffff";
       context.font = "24px Verdana";
       drawCenterText(
-        "game over",
+        "Game over, try again",
         level.x,
         level.y + level.height / 2 + 10,
         level.width
