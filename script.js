@@ -493,7 +493,7 @@ window.onload = function () {
       level.tiles[gridpos.x][gridpos.y + 1].type == -1
     ) {
       console.log("floating bubble", player.buble.tileType);
-      gridpos = getGridPosition(centrex, centery - level.tileheight);
+      gridpos = getGridPosition(centrex, centery - level.tileheight / 2);
     }
     //make shure the gridposition is valid
     if (gridpos.x < 0) {
