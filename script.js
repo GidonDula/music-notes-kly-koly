@@ -1107,7 +1107,7 @@ window.onload = function () {
     player.buble.visible = true;
     //get the random type from the exsisting colors
     let nextColor = getExsistingColor();
-
+      console.log(nextColor);
     //set the next buble
     player.nextBuble.tileType = nextColor;
   }
