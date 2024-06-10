@@ -494,6 +494,7 @@ window.onload = function () {
     ) {
       console.log("floating bubble", player.buble.tileType);
       gridpos = getGridPosition(centrex, centery - level.tileheight / 2);
+         console.log(gridpos);
     }
     //make shure the gridposition is valid
     if (gridpos.x < 0) {
@@ -1107,15 +1108,21 @@ window.onload = function () {
     player.buble.visible = true;
     //get the random type from the exsisting colors
     let nextColor = getExsistingColor();
+     if (nextColor != undefined) {
       console.log(nextColor);
-    //set the next buble
-    player.nextBuble.tileType = nextColor;
+      //set the next buble
+      player.nextBuble.tileType = nextColor;
+    } else {
+      setGamestate(gameStates.winning);
+    }
+     
   }
 
   //get a random exsisting color
   function getExsistingColor() {
     let exsistingColors = findColors();
     let bubleType = 0;
+      console.log(exsistingColors.length);
     if (exsistingColors.length > 0) {
       bubleType = exsistingColors[randRange(0, exsistingColors.length - 1)];
     }
