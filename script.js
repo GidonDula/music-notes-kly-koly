@@ -788,18 +788,18 @@ window.onload = function () {
     context.fillStyle = "#000000";
     context.fillRect(
       level.width - 200,
-      level.y - 84 + level.height + 4 - yOffset,
-      250,
-      150
+      level.y - 60 + level.height + 4 - yOffset,
+      150,
+      80
     );
     //draw score
     context.fillStyle = "#ffffff";
     context.font = "36px Verdana";
     let scorex = level.x + level.width - 150;
     let scorey = level.y + level.height + level.tileheight - yOffset - 8;
-    drawCenterText("score", scorex, scorey - 80, 150);
+    drawCenterText("score", scorex, scorey - 80, 60);
     context.font = "36px Verdana";
-    drawCenterText(score, scorex, scorey - 50, 150);
+    drawCenterText(score, scorex, scorey - 50, 60);
     //render cluster
     if (showCluster) {
       renderCluster(cluster, 255, 128, 128);
