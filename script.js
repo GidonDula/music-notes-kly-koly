@@ -850,15 +850,9 @@ window.onload = function () {
         level.width
       );
       drawCenterText(
-        "game over",
+        "click to start a new game",
         level.x,
         level.y + level.height / 2 + 40,
-        level.width
-      );
-      drawCenterText(
-        "click to start",
-        level.x,
-        level.y + level.height / 2 + 70,
         level.width
       );
     }
