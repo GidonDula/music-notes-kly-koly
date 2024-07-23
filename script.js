@@ -1308,3 +1308,11 @@ window.onload = function () {
   init();
 };
 
+const displayNotes = () => {
+  document.getElementById("notes-pop-up").style.display = "block";
+};
+
+const hideNotes = () => {
+  document.getElementById("notes-pop-up").style.display = "none";
+};
+
