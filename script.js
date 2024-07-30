@@ -852,7 +852,7 @@ window.onload = function () {
         level.width
       );
       drawCenterText(
-        "click to start a new game",
+        "click to move to next level",
         level.x,
         level.y + level.height / 2 + 40,
         level.width
