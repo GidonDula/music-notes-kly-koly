@@ -11,11 +11,22 @@
     height: 1200px;
 }
 
+#notes-img {
+  position: absolute;
+  bottom: 200px;
+  left: 400px;
+}
+
 @media (max-width: 800px) {
   #viewport {
     width: 700px;
     height: 90%;
     background-image: url("assets/theater-picture-for-mobile.jpg");
     background-repeat: no-repeat;
+  }
+     #notes-img {
+    position: absolute;
+    bottom: 200px;
+    left: 0px;
   }
 }
