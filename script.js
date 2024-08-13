@@ -862,6 +862,19 @@ window.onload = function () {
         changingLevel = true;
       } else if (currentLevel == "two" && changingLevel == false) {
         currentLevel = "three";
+        changingLevel = true;
+      }else if (currentLevel == "three" && changingLevel == false) {
+        currentLevel = "four";
+        changingLevel = true;
+      } else if (currentLevel == "four" && changingLevel == false) {
+        currentLevel = "five";
+        changingLevel = true;
+      } else if (currentLevel == "five" && changingLevel == false) {
+        currentLevel = "six";
+        changingLevel = true;
+      } else if (currentLevel == "six"&& changingLevel == false ) {
+        currentLevel = "seven";
+        changingLevel = true;
       }
     }
   }
@@ -1030,7 +1043,16 @@ window.onload = function () {
       createLevelTwo();
     } else if (currentLevel == "three") {
       createLevelThree();
+    }else if (currentLevel == "four") {
+      createLevelFour();
+    } else if (currentLevel == "five") {
+      createLevelFive();
+    } else if (currentLevel == "six") {
+      createLevelSix();
+    } else if (currentLevel == "seven") {
+      createLevelSeven();
     }
+
 
     //init the next buble and set current bubble
 
@@ -1163,6 +1185,161 @@ window.onload = function () {
       countMusicalNotesPerRow = 0;
     }
   }
+    //create a random level
+  function createLevelFour() {
+    //create a level with random tiles
+    let countMusicalNotesPerRow = 0;
+    let maxMusicalNotesAtRow = 7;
+    for (let j = 0; j < level.rows; j++) {
+      let randomTile = randRange(0, musicalNotes - 1);
+      let count = 0;
+      for (let i = 0; i < level.colums; i++) {
+        if (count >= 2) {
+          //change the random tile
+          let newTile = randRange(0, musicalNotes - 1);
+          //make shure the new tile is diffrent from the previous tile
+          if (newTile == randomTile) {
+            newTile = (newTile + 1) % musicalNotes;
+          }
+          randomTile = newTile;
+          count = 0;
+        }
+        count++;
+
+        if (j < level.rows / 2) {
+          //console.log(i, j, randomTile);
+          if (randomTile <= 7) {
+            countMusicalNotesPerRow++;
+            if (countMusicalNotesPerRow > maxMusicalNotesAtRow) {
+              randomTile = Math.floor(Math.random() * 5) + bublecolors;
+              if (randomTile == 7) {
+                randomTile++;
+              }
+            }
+          }
+          level.tiles[i][j].type = randomTile;
+          //          console.log(i, j, randomTile, countMusicalNotesPerRow);
+        } else {
+          level.tiles[i][j].type = -1;
+        }
+      }
+      countMusicalNotesPerRow = 0;
+    }
+  }
+
+  //create a random level
+  function createLevelFive() {
+    //create a level with random tiles
+    let countMusicalNotesPerRow = 0;
+    let maxMusicalNotesAtRow = 8;
+    for (let j = 0; j < level.rows; j++) {
+      let randomTile = randRange(0, musicalNotes - 1);
+      let count = 0;
+      for (let i = 0; i < level.colums; i++) {
+        if (count >= 2) {
+          //change the random tile
+          let newTile = randRange(0, musicalNotes - 1);
+          //make shure the new tile is diffrent from the previous tile
+          if (newTile == randomTile) {
+            newTile = (newTile + 1) % musicalNotes;
+          }
+          randomTile = newTile;
+          count = 0;
+        }
+        count++;
+
+        if (j < level.rows / 2) {
+          //console.log(i, j, randomTile);
+          if (randomTile <= 7) {
+            countMusicalNotesPerRow++;
+            if (countMusicalNotesPerRow > maxMusicalNotesAtRow) {
+              randomTile = Math.floor(Math.random() * 5) + bublecolors;
+              if (randomTile == 7) {
+                randomTile++;
+              }
+            }
+          }
+          level.tiles[i][j].type = randomTile;
+          //          console.log(i, j, randomTile, countMusicalNotesPerRow);
+        } else {
+          level.tiles[i][j].type = -1;
+        }
+      }
+      countMusicalNotesPerRow = 0;
+    }
+  }
+
+  //create a random level
+  function createLevelSix() {
+    //create a level with random tiles
+    let countMusicalNotesPerRow = 0;
+    let maxMusicalNotesAtRow = 9;
+    for (let j = 0; j < level.rows; j++) {
+      let randomTile = randRange(0, musicalNotes - 1);
+      let count = 0;
+      for (let i = 0; i < level.colums; i++) {
+        if (count >= 2) {
+          //change the random tile
+          let newTile = randRange(0, musicalNotes - 1);
+          //make shure the new tile is diffrent from the previous tile
+          if (newTile == randomTile) {
+            newTile = (newTile + 1) % musicalNotes;
+          }
+          randomTile = newTile;
+          count = 0;
+        }
+        count++;
+
+        if (j < level.rows / 2) {
+          //console.log(i, j, randomTile);
+          if (randomTile <= 7) {
+            countMusicalNotesPerRow++;
+            if (countMusicalNotesPerRow > maxMusicalNotesAtRow) {
+              randomTile = Math.floor(Math.random() * 5) + bublecolors;
+              if (randomTile == 7) {
+                randomTile++;
+              }
+            }
+          }
+          level.tiles[i][j].type = randomTile;
+          //          console.log(i, j, randomTile, countMusicalNotesPerRow);
+        } else {
+          level.tiles[i][j].type = -1;
+        }
+      }
+      countMusicalNotesPerRow = 0;
+    }
+  }
+
+  // Create a random level
+  function createLevelSeven() {
+    // Create a level with random tiles
+    for (var j = 0; j < level.rows; j++) {
+      var randomtile = randRange(0, musicalNotes - 1);
+      var count = 0;
+      for (var i = 0; i < level.colums; i++) {
+        if (count >= 2) {
+          // Change the random tile
+          var newtile = randRange(0, musicalNotes - 1);
+
+          // Make sure the new tile is different from the previous tile
+          if (newtile == randomtile) {
+            newtile = (newtile + 1) % musicalNotes;
+          }
+          randomtile = newtile;
+          count = 0;
+        }
+        count++;
+
+        if (j < level.rows / 2) {
+          level.tiles[i][j].type = randomtile;
+        } else {
+          level.tiles[i][j].type = -1;
+        }
+      }
+    }
+  }
+
 
   //create a random buble for the player
   function nextBuble() {
